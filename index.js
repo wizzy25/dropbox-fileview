@@ -3,7 +3,7 @@
 var Dropbox = require('dropbox');
 var fs = require('fs');
 
-var token = '8-MUGhlClpsAAAAAAAAAI083fhbB4n2x3bn-Xl9CjJ0xTgg48oR2wufjjgKViVZQ';
+var token = '';
 
 var dbx = new Dropbox({accessToken: token});
 
@@ -47,19 +47,3 @@ var download = ()=>{
 		console.log("Alles gut: " + JSON.stringify(res, null, 2))})
 	.catch(err=>{console.error("Alles schlecht: %s", JSON.stringify(err, null, 2))});
 };
-
-
-/*
-if(process.argv[2] === '-d' && process.argv[3]) {
-	var file = fs.createWriteStream('db.zip');
-	dbx.filesDownload({path: process.argv[3]})
-	.then(data=>{
-		file.pipe(data);
-		console.log('Your file was downloaded \n');
-	}, error=>{
-		console.log(error);
-	});
-} else {console.log('did nothing')}*/
-
-//dbx.filesAlphaGetMetadata({path: process.argv[3]})
-//.then(res=>{console.log(res)}, err=>{console.error('opps: ' + JSON.stringify(err)});
