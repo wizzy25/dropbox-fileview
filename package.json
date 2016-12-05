@@ -1,0 +1,14 @@
+{
+  "name": "fileview",
+  "version": "0.0.1",
+  "description": "A small utility to enable a user download, upload and view files/folders from dropbox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Williams Oma",
+  "license": "ISC",
+  "dependencies": {
+    "dropbox": "^2.5.0"
+  }
+}
