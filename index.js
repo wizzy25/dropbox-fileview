@@ -22,7 +22,7 @@ var upload = ()=>{
 		.catch(err=>{console.error("Alles schlecht: %s", JSON.stringify(err, null, 2))});
 	});
 };
-
+upload();
 //Function to view files in Dropbox
 var show = ()=>{
 	return dbx.filesListFolder({path: '/alles deutsch'})
