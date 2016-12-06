@@ -1,33 +1,43 @@
 'use strict';
 
-var Dropbox = require('dropbox');
-var fs = require('fs');
+const Dropbox = require('dropbox'), fs = require('fs'), path = require('path');
+//let dbx = new Dropbox({accessToken: });
 
-var token = '';
+function fileview(arg){
+	if(arg.upload) {upload(arg.upload)}
+	else if (arg.view) {show(arg.view)}
+	else if (arg.download) {download(arg.download)}
+	else {
+		console.log('Error: unknown arguments please run --help || -h');
+		process.exit(1);
+	}
+}
 
-var dbx = new Dropbox({accessToken: token});
 
 //Function to upload a file to dropbox
-var upload = ()=>{
-	return fs.readFile('./pic.jpg', (err, file)=>{
+var upload = (arg)=>{
+	var dbx = new Dropbox({accessToken: arg.token});
+	return fs.readFile(arg.upload, (err, file)=>{
 		if(err) throw err;
-		console.log(JSON.stringify(file));
+		//console.log(JSON.stringify(file));
 		dbx.filesUpload({
 			'contents': file,
-			'path': '/texe.jpg',
+			'path': '/' + path.basename(arg.upload),
 			//'mode': {'.tag': 'update'},
 			'autorename': true,
 			'mute': true
-		}).then(res=>{console.log("Alles gut: " + JSON.stringify(res, null, 2))})
-		.catch(err=>{console.error("Alles schlecht: %s", JSON.stringify(err, null, 2))});
+		}).then(res=>{console.log("Done uploading: " + JSON.stringify(res, null, 2))})
+		.catch(err=>{console.error("Something went wrong: %s", JSON.stringify(err, null, 2))});
 	});
 };
-upload();
+
 //Function to view files in Dropbox
-var show = ()=>{
-	return dbx.filesListFolder({path: '/alles deutsch'})
+var show = (arg)=>{
+	var dbx = new Dropbox({accessToken: arg.token});
+	if (arg.view === '#root') {arg.view = ''};
+	return dbx.filesListFolder({path: arg.view})
 	.then(res => {
-		var files = 'This is the list of folders in the current directory: ', size = '', list = res.entries;
+		var files = 'This is the list of folders and files in the requested directory: ', size = '', list = res.entries;
 		for (let i=0; i<list.length; i++) {
 			if (!list[i].size) {size = ''}
 			else {size = '\nSize: ' + list[i].size + ' Bytes'}
@@ -38,12 +48,15 @@ var show = ()=>{
 };
 
 //Function to download file from dropbox
-var download = ()=>{
-	return dbx.filesDownload({path: '/texe.jpg'})
+var download = (arg)=>{
+	var dbx = new Dropbox({accessToken: arg.token});
+	return dbx.filesDownload({path: arg.download})
 	.then(res=>{
 		fs.writeFileSync(res.name, res.fileBinary, 'binary', err=>{
 			if(err) throw err;
 		});
-		console.log("Alles gut: " + JSON.stringify(res, null, 2))})
-	.catch(err=>{console.error("Alles schlecht: %s", JSON.stringify(err, null, 2))});
+		console.log("Done downloading: " + JSON.stringify(res, null, 2))})
+	.catch(err=>{console.error("Something went wrong: %s", JSON.stringify(err, null, 2))});
 };
+
+module.exports = fileview;
