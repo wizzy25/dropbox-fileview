@@ -6,9 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizzy25/fileview.git"
+  },
+  "keywords": [
+    "dropbox",
+    "es6"
+  ],
   "author": "Williams Oma",
   "license": "ISC",
+  "bin": {
+    "fileview": "cli.js"
+  },
   "dependencies": {
-    "dropbox": "^2.5.0"
+    "commander": "^2.9.0",
+    "dropbox": "^2.5.0",
+    "nconf": "^0.8.4"
   }
 }
