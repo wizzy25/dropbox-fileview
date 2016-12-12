@@ -32,7 +32,7 @@ var upload = (arg)=>{
 //Function to view files in Dropbox
 var view = (arg)=>{
 	var dbx = new Dropbox({accessToken: arg.token});
-	if (arg.view === '#root') {arg.view = ''};
+	if (arg.view === '#root' || typeof(arg.view) === 'boolean') {arg.view = ''};
 	return dbx.filesListFolder({path: arg.view})
 	.then(res => {
 		var files = 'This is the list of folders and files in the requested directory: ', size = '', list = res.entries;
