@@ -9,9 +9,9 @@ program
 	.version(pkg.version)
 	.description('Download, upload or view files in your dropbox account')
 	.option('-t, --token <value>', 'Enter your dropbox authentication token')
-	.option('-d, --download [value]', 'Enter the full dropbox path of the file to be downloaded (Downloads to working directory')
-	.option('-u, --upload [value]', 'Enter the full relative path of the file to be uploaded (Uploads to the dropbox root')
-	.option('-v, --view [value]', 'Enter the path of the dropbox folder to view or enter "#root" to view the root folder', '#root')
+	.option('-d, --download <value>', 'Enter the full dropbox path of the file to be downloaded (Downloads to working directory')
+	.option('-u, --upload <value>', 'Enter the full relative path of the file to be uploaded (Uploads to the dropbox root')
+	.option('-v, --view [value]', 'Enter the path of the dropbox folder to view or enter "#root" to view the root folder')
 	.option('-d, --disable', 'Use this flag to revoke the access token')
 	.parse(process.argv);
 
@@ -30,8 +30,6 @@ if(!process.argv.slice(2).length) {
 }
 
 nconf.argv().file({file: './config.json'});
-//program.token = nconf.get('token') || nconf.get('t') || nconf.get('DROPBOX_TOKEN');
-
 
 if(!program.token && !nconf.get('DROPBOX_TOKEN')) {
 	throw new Error('No specified dropbox Token. Use the "-t || --token" flag or the config file');
@@ -39,7 +37,5 @@ if(!program.token && !nconf.get('DROPBOX_TOKEN')) {
 else if(!program.token) {
 	program.token = nconf.get('DROPBOX_TOKEN');
 }
-
-
 
 fileview(program);
