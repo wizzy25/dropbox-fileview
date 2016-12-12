@@ -6,7 +6,7 @@ function fileview(arg){
 	if(arg.upload) {upload(arg)}
 	else if (arg.view) {view(arg)}
 	else if (arg.download) {download(arg)}
-	else if (arg.disable) {disable(arg)}
+	else if (arg.revokeToken) {disable(arg)}
 	else {
 		console.log('Error: unknown arguments. Please run --help || -h');
 		process.exit(1);

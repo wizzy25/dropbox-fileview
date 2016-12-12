@@ -12,7 +12,7 @@ program
 	.option('-d, --download <value>', 'Enter the full dropbox path of the file to be downloaded (Downloads to working directory')
 	.option('-u, --upload <value>', 'Enter the full relative path of the file to be uploaded (Uploads to the dropbox root')
 	.option('-v, --view [value]', 'Enter the path of the dropbox folder to view or enter "#root" to view the root folder')
-	.option('-d, --disable', 'Use this flag to revoke the access token')
+	.option('-r, --revoke-token', 'Use this flag to revoke the access token')
 	.parse(process.argv);
 
 	
