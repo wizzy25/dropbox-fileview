@@ -29,7 +29,7 @@ if(!process.argv.slice(2).length) {
 	program.help();
 }
 
-nconf.argv().file({file: './config.json'});
+nconf.argv().file({file: __dirname + '/config.json'});
 
 if(!program.token && !nconf.get('DROPBOX_TOKEN')) {
 	throw new Error('No specified dropbox Token. Use the "-t || --token" flag or the config file');
