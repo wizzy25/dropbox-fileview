@@ -2,8 +2,11 @@
 'use strict';
 
 
-var program = require('commander'), fs = require('fs'), nconf = require('nconf'), fileview = require('./index');
-var pkg = JSON.parse(fs.readFileSync(__dirname + '/package.json'));
+const program = require('commander');
+const fs = require('fs');
+const nconf = require('nconf');
+const fileview = require('./index');
+const pkg = require('./package.json');
 
 program
 	.version(pkg.version)
